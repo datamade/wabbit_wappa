@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
+from time import sleep
 
 """
 Wrapper for Vowpal Wabbit executable
@@ -386,6 +387,8 @@ class VW():
         # No response is expected in this case
 
     def close(self):
+        """Sleep a bit to let VW finish saving model"""
+        sleep(2)
         """Shut down the VW process."""
         self.vw_process.close()
         # TODO: Give this a context manager interface
