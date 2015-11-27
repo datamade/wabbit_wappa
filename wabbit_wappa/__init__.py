@@ -242,7 +242,12 @@ class VW():
             if active_mode:
                 self.vw_process = active_learner.ActiveVWProcess(command, port=port)
             else:
-                self.vw_process = pexpect.spawn(command)
+                # Run VW in shell with 'canonical mode processing' disabled
+                # See: http://pexpect.readthedocs.org/en/stable/api/pexpect.html#pexpect.spawn.send
+                self.vw_process = pexpect.spawn('/bin/bash')
+                self.vw_process.sendline('stty -icanon')
+                self.vw_process.sendline(command)
+                
                 # Turn off delaybeforesend; this is necessary only in non-applicable cases
                 self.vw_process.delaybeforesend = 0
                 self.vw_process.setecho(False)
