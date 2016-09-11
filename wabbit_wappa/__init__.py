@@ -244,7 +244,7 @@ class VW():
             else:
                 # Run VW in shell with 'canonical mode processing' disabled
                 # See: http://pexpect.readthedocs.org/en/stable/api/pexpect.html#pexpect.spawn.send
-                self.vw_process = pexpect.spawn('/bin/bash')
+                self.vw_process = pexpect.spawn('/bin/bash', echo=False)
                 self.vw_process.sendline('stty -icanon')
                 self.vw_process.sendline(command)
                 
